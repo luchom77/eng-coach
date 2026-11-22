@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1d4ed8">
+  <meta name="description" content="A daily mechanical and electrical engineering question that works offline.">
+  <title>Engineering Coach</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top"><h1>Engineering Coach</h1></header>
+  <main id="app" aria-live="polite"></main>
+  <nav id="tabs" aria-label="Sections">
+    <button type="button" data-view="today">Today</button>
+    <button type="button" data-view="report">Report</button>
+    <button type="button" data-view="settings">Settings</button>
+  </nav>
+  <div id="toast" role="status"></div>
+  <noscript><p style="padding:1rem">This app needs JavaScript turned on.</p></noscript>
+  <script src="data/bank.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
