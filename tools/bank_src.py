@@ -10,6 +10,7 @@ Each question: q(level, topic, subtopic, question, options, correct_index, expla
 
 QUESTIONS = []
 _counters = {}
+BATCH = "base"  # question files set this; only the "base" batch is bundled into the app
 
 
 def q(level, topic, subtopic, question, options, correct_index, explanation, check=None):
@@ -18,7 +19,7 @@ def q(level, topic, subtopic, question, options, correct_index, explanation, che
     qid = f"L{level}-{topic[0]}-{_counters[key]:02d}"
     QUESTIONS.append(
         dict(id=qid, level=level, topic=topic, subtopic=subtopic, question=question,
-             options=options, correct_index=correct_index, explanation=explanation, check=check)
+             options=options, correct_index=correct_index, explanation=explanation, check=check, batch=BATCH)
     )
 
 
@@ -222,3 +223,7 @@ q(1, E, S, "Which component allows current to flow in essentially only one direc
   ["Diode", "Resistor", "Capacitor", "Inductor"], 0,
   "A diode conducts when it is forward-biased and blocks current in the reverse direction. This is "
   "why diodes are used in rectifiers that turn AC into DC.")
+
+
+# More question files register themselves by calling q() when imported.
+import bank_fundamentals_2  # noqa: E402,F401

@@ -97,3 +97,11 @@ td.n, th.n { text-align: right; }
 }
 #toast.show { opacity: 1; }
 button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* several questions per day */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { min-height: 40px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-weight: 600; }
+.chip.ok { border-color: var(--ok); color: var(--ok); }
+.chip.bad { border-color: var(--bad); color: var(--bad); }
+.chip.current { outline: 2px solid var(--accent); outline-offset: 1px; }
+.score { font-size: 1.3rem; font-weight: 700; margin: 0; }

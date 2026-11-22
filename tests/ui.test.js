@@ -40,6 +40,8 @@ test('first launch shows a Mechanical level-1 question with four options', () =>
   assert.equal(day.topic, 'Mechanical');
   assert.equal($(w, '.question').textContent, day.question);
   assert.equal(options(w).length, 4);
+  assert.equal($$(w, '.chip').length, 3);
+  assert.equal(Object.keys(st.days).length, 3);
   assert.deepEqual(options(w).map((b) => b.querySelector('.letter').textContent), ['A', 'B', 'C', 'D']);
   assert.ok($(w, '.badge.topic-mechanical'));
   assert.equal($(w, '.feedback'), null);
@@ -73,14 +75,16 @@ test('right answer shows Correct! and the month score', () => {
   assert.match(fb.textContent, /This month: 1\/1 correct/);
 });
 
-test('reloading the app keeps the same question and answer (no new question, no re-answering)', () => {
+test('reloading the app keeps answers and resumes at the next unanswered question', () => {
   const w1 = boot();
   const day = stored(w1).days['2026-11-22'];
   options(w1)[0].click();
   const w2 = boot({ storage: { [KEY]: w1.localStorage.getItem(KEY) } });
-  assert.equal($(w2, '.question').textContent, day.question);
-  assert.ok(options(w2).every((b) => b.disabled));
-  assert.equal(Object.keys(stored(w2).days).length, 1);
+  // question 1 is answered, so the app resumes at question 2 and creates nothing new
+  assert.equal($(w2, '.question').textContent, stored(w2).days['2026-11-22#2'].question);
+  assert.ok(options(w2).every((b) => !b.disabled));
+  assert.equal(Object.keys(stored(w2).days).length, 3);
+  assert.equal(stored(w2).days['2026-11-22'].answer, 'A');
 });
 
 test('next day brings a new question and the topic switches to Electrical', () => {
@@ -89,7 +93,7 @@ test('next day brings a new question and the topic switches to Electrical', () =
   w.__TODAY__ = '2026-11-23';
   tab(w, 'report'); tab(w, 'today');
   const st = stored(w);
-  assert.equal(Object.keys(st.days).length, 2);
+  assert.equal(Object.keys(st.days).length, 6);
   assert.equal(st.days['2026-11-23'].topic, 'Electrical');
   assert.ok($(w, '.badge.topic-electrical'));
   assert.ok(options(w).every((b) => !b.disabled));
@@ -121,7 +125,7 @@ test('settings: bank counts, reminder, backup controls are present', () => {
   const w = boot();
   tab(w, 'settings');
   const text = $(w, 'main').textContent;
-  assert.match(text, /Question bank \(32 questions\)/);
+  assert.match(text, /Question bank \(132 questions\)/);
   assert.match(text, /Daily reminder/);
   assert.match(text, /Export backup/);
   assert.match(text, /Program start date/);
@@ -137,7 +141,7 @@ test('importing a question file adds valid questions and rejects bad ones', asyn
   fileInput(w, $(w, 'input[aria-label="Question file"]'), JSON.stringify({ questions: [good, bad] }));
   await wait();
   assert.equal(stored(w).extraBank.length, 1);
-  assert.match($(w, 'main').textContent, /Question bank \(33 questions\)/);
+  assert.match($(w, 'main').textContent, /Question bank \(133 questions\)/);
   assert.match($(w, '#toast').textContent, /Added 1 questions \(1 rejected\)/);
 
   fileInput(w, $(w, 'input[aria-label="Question file"]'), 'not json at all');
@@ -170,7 +174,7 @@ test('reset wipes answers and starts fresh', () => {
   options(w)[0].click();
   tab(w, 'settings');
   $$(w, 'button').find((b) => /Reset everything/.test(b.textContent)).click();
-  assert.equal(Object.keys(stored(w).days).length, 1); // fresh state, then today's new question
+  assert.equal(Object.keys(stored(w).days).length, 3); // fresh state, then today's three questions
   assert.equal(stored(w).days['2026-11-22'].answer, null);
 });
 
@@ -215,4 +219,80 @@ test('month 2 without level-2 questions falls back to level 1 and says so', () =
   const w = boot({ today: '2026-12-23', storage: { [KEY]: JSON.stringify(st) } });
   assert.match($(w, '.notice').textContent, /no unused level 2/);
   assert.equal(stored(w).days['2026-12-23'].level, 1);
+});
+
+
+// ---- three questions a day ----
+const answerWith = (w, right) => {
+  const key = $$(w, '.chip.current')[0];
+  const st = stored(w);
+  const slot = Number(key.textContent.match(/Q(\d)/)[1]);
+  const d = st.days[slot > 1 ? '2026-11-22#' + slot : '2026-11-22'];
+  const idx = 'ABCD'.indexOf(d.correct);
+  options(w)[right ? idx : (idx === 0 ? 1 : 0)].click();
+};
+
+test('three questions a day: next button walks through them, then a summary appears', () => {
+  const w = boot();
+  const next = () => $$(w, 'button').find((b) => /Next question|See today/.test(b.textContent));
+  assert.equal(next(), undefined);
+  answerWith(w, true);
+  assert.equal(next().textContent, 'Next question');
+  next().click();
+  assert.equal($$(w, '.chip.current')[0].textContent.slice(0, 2), 'Q2');
+  answerWith(w, false);
+  next().click();
+  answerWith(w, true);
+  assert.match(next().textContent, /See today/);
+  next().click();
+  const text = $(w, 'main').textContent;
+  assert.match(text, /All done for today/);
+  assert.match(text, /2 of 3 correct/);
+  assert.equal(options(w).length, 0);
+  assert.deepEqual($$(w, '.chip').map((c) => c.textContent), ['Q1 ✓', 'Q2 ✗', 'Q3 ✓']);
+});
+
+test('tapping a finished question chip reviews it; the wrong one shows in the report as Q2', () => {
+  const w = boot();
+  const next = () => $$(w, 'button').find((b) => /Next question|See today/.test(b.textContent));
+  answerWith(w, true); next().click();
+  answerWith(w, false); next().click();
+  answerWith(w, true); next().click();
+  $$(w, '.chip')[1].click();
+  assert.ok($(w, '.feedback.bad'));
+  assert.ok(options(w).every((b) => b.disabled));
+  tab(w, 'report');
+  assert.match($(w, 'main').textContent, /2026-11-22 Q2/);
+  assert.match($(w, 'main').textContent, /Questions you got wrong \(1\)/);
+});
+
+test('settings: questions per day can be changed and applies without removing shown questions', () => {
+  const w = boot();
+  tab(w, 'settings');
+  const sel = $(w, 'select[aria-label="Questions per day"]');
+  assert.equal(sel.value, '3');
+  sel.value = '5';
+  $$(w, 'button').find((b) => b.textContent === 'Apply').click();
+  assert.equal(stored(w).perDay, 5);
+  assert.equal(Object.keys(stored(w).days).length, 3); // nothing new until Today is opened
+  tab(w, 'today');
+  assert.equal($$(w, '.chip').length, 5);
+  tab(w, 'settings');
+  $(w, 'select[aria-label="Questions per day"]').value = '1';
+  $$(w, 'button').find((b) => b.textContent === 'Apply').click();
+  tab(w, 'today');
+  assert.equal($$(w, '.chip').length, 5); // already-shown ones stay
+  assert.match((tab(w, 'settings'), $(w, 'main').textContent), /At 1 per day/);
+});
+
+test('an old single-question save upgrades: its answer is kept and two more questions appear', () => {
+  const w1 = boot();
+  const st = stored(w1);
+  const first = st.days['2026-11-22'];
+  const legacy = { version: 1, startDate: st.startDate, extraBank: [], days: { '2026-11-22': Object.assign({}, first, { slot: undefined, answer: first.correct, isCorrect: true }) } };
+  const w2 = boot({ storage: { [KEY]: JSON.stringify(legacy) } });
+  assert.equal(Object.keys(stored(w2).days).length, 3);
+  assert.equal($$(w2, '.chip').length, 3);
+  assert.equal($$(w2, '.chip')[0].textContent, 'Q1 ✓');
+  assert.equal($$(w2, '.chip.current')[0].textContent.slice(0, 2), 'Q2');
 });

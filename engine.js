@@ -1,6 +1,8 @@
 /* Engineering Coach - app logic. Pure functions, no DOM, so it can be tested in Node.
  *
- * state = { version: 1, startDate: 'YYYY-MM-DD', days: { 'YYYY-MM-DD': day }, extraBank: [] }
+ * state = { version: 1, startDate: 'YYYY-MM-DD', perDay: 3, days: { key: day }, extraBank: [] }
+ *   key = 'YYYY-MM-DD' for the first question of a day, 'YYYY-MM-DD#2' for the second, and so on.
+ *   Data saved before several questions a day existed has only first-question keys and still works.
  * day   = a snapshot of the question as shown (options already shuffled), plus your answer.
  *         Snapshots mean old reports stay correct even if the question bank changes later.
  */
@@ -15,6 +17,7 @@
   var LETTERS = ['A', 'B', 'C', 'D'];
   var TOPICS = ['Mechanical', 'Electrical'];
   var DAY_MS = 86400000;
+  var DEFAULT_PER_DAY = 3, MAX_PER_DAY = 5;
 
   // ---- dates (all ISO 'YYYY-MM-DD' strings; computed in UTC so time zones cannot shift a day) ----
   function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -38,7 +41,33 @@
   function levelFor(todayISO, startISO) { return Math.min(monthsElapsed(todayISO, startISO), MAX_LEVEL - 1) + 1; }
 
   // ---- state ----
-  function newState(startISO) { return { version: 1, startDate: startISO, days: {}, extraBank: [] }; }
+  function newState(startISO) { return { version: 1, startDate: startISO, perDay: DEFAULT_PER_DAY, days: {}, extraBank: [] }; }
+
+  // ---- several questions per day ----
+  function perDayOf(state) {
+    if (!state || state.perDay === undefined || state.perDay === null) return DEFAULT_PER_DAY;
+    var n = Math.round(Number(state.perDay));
+    if (!isFinite(n)) return DEFAULT_PER_DAY;
+    return Math.min(Math.max(n, 1), MAX_PER_DAY);
+  }
+  function slotKey(dateISO, slot) { return slot > 1 ? dateISO + '#' + slot : dateISO; }
+  function slotFromKey(key) {
+    var i = key.indexOf('#');
+    return i < 0 ? 1 : (Number(key.slice(i + 1)) || 1);
+  }
+  /* The day's questions in order. Older saved data has no `slot` field: it is read from the key. */
+  function dayQuestions(state, dateISO) {
+    return Object.keys(state.days)
+      .filter(function (k) { return k === dateISO || k.indexOf(dateISO + '#') === 0; })
+      .map(function (k) { var d = state.days[k]; if (!d.slot) d.slot = slotFromKey(k); return d; })
+      .sort(function (a, b) { return a.slot - b.slot; });
+  }
+  function dayScore(state, dateISO) {
+    var ds = dayQuestions(state, dateISO);
+    var answered = ds.filter(function (d) { return d.answer; });
+    return { total: ds.length, answered: answered.length,
+      right: answered.filter(function (d) { return d.isCorrect; }).length };
+  }
 
   function isState(s) {
     return !!s && typeof s === 'object' && typeof s.startDate === 'string' &&
@@ -88,10 +117,14 @@
   }
 
   // ---- choosing today's question ----
-  function pickPreferred(list, recentSubs, rng) {
-    var fresh = list.filter(function (q) { return recentSubs.indexOf(q.subtopic) < 0; });
-    var pool = fresh.length ? fresh : list;
-    return pool[Math.floor(rng() * pool.length)];
+  /* `tiers` is a list of subtopic lists to avoid, strictest first. Falls back tier by tier. */
+  function pickPreferred(list, tiers, rng) {
+    for (var t = 0; t < tiers.length; t++) {
+      var avoid = tiers[t];
+      var fresh = list.filter(function (q) { return avoid.indexOf(q.subtopic) < 0; });
+      if (fresh.length) return fresh[Math.floor(rng() * fresh.length)];
+    }
+    return list[Math.floor(rng() * list.length)];
   }
 
   function shuffledOrder(rng) {
@@ -102,30 +135,33 @@
     return a;
   }
 
-  /* Returns { day, created, notice }. Never changes an existing day. */
-  function assignToday(state, bank, todayISO, rng) {
-    rng = rng || Math.random;
-    var existing = state.days[todayISO];
-    if (existing) return { day: existing, created: false, notice: existing.notice || null };
+  function byRecency(a, b) {
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    return (b.slot || 1) - (a.slot || 1);
+  }
 
-    var topic = topicFor(todayISO, state.startDate);
-    var wanted = levelFor(todayISO, state.startDate);
+  /* One question for `topic` at about `wanted` level, never repeating one while unused ones remain.
+   * Returns { chosen, notice } or { message } when the bank has nothing for this topic. */
+  function chooseQuestion(state, bank, todayISO, topic, wanted, rng) {
     var all = Object.keys(state.days).map(function (k) { return state.days[k]; });
-
     var lastUsed = {};
     all.forEach(function (d) { if (!lastUsed[d.qid] || d.date > lastUsed[d.qid]) lastUsed[d.qid] = d.date; });
-    var recentSubs = all.filter(function (d) { return d.topic === topic; })
-      .sort(function (a, b) { return b.date < a.date ? -1 : 1; }).slice(0, 4)
+    var sameTopic = all.filter(function (d) { return d.topic === topic; });
+    var todaySubs = sameTopic.filter(function (d) { return d.date === todayISO; })
       .map(function (d) { return d.subtopic; });
+    var recentSubs = sameTopic.filter(function (d) { return d.date < todayISO; })
+      .sort(byRecency).slice(0, 4).map(function (d) { return d.subtopic; });
+    // prefer a subtopic not used today or recently, then one not used today, then anything
+    var tiers = [todaySubs.concat(recentSubs), todaySubs, []];
     var inLevel = function (lv) { return bank.filter(function (q) { return q.topic === topic && q.level === lv; }); };
 
     var chosen = null, notice = null, lv;
     for (lv = wanted; lv >= 1 && !chosen; lv--) {
       var unused = inLevel(lv).filter(function (q) { return !lastUsed[q.id]; });
       if (unused.length) {
-        chosen = pickPreferred(unused, recentSubs, rng);
+        chosen = pickPreferred(unused, tiers, rng);
         if (lv !== wanted) {
-          notice = 'Your question bank has no unused level ' + wanted + ' ' + topic + ' questions, so today’s is level ' + lv +
+          notice = 'Your question bank has no unused level ' + wanted + ' ' + topic + ' questions, so this one is level ' + lv +
             '. Import more questions in Settings to keep progressing.';
         }
       }
@@ -135,28 +171,48 @@
       for (lv = wanted; lv >= 1 && !candidates.length; lv--) candidates = inLevel(lv);
       if (!candidates.length) candidates = bank.filter(function (q) { return q.topic === topic; });
       if (!candidates.length) {
-        return { day: null, created: false, notice: 'There are no ' + topic + ' questions in the bank. Import a question file in Settings.' };
+        return { message: 'There are no ' + topic + ' questions in the bank. Import a question file in Settings.' };
       }
       var oldest = candidates.reduce(function (m, q) {
         var u = lastUsed[q.id] || '';
         return u < m ? u : m;
       }, '9999-99-99');
       var oldestOnes = candidates.filter(function (q) { return (lastUsed[q.id] || '') === oldest; });
-      chosen = pickPreferred(oldestOnes, recentSubs, rng);
+      chosen = pickPreferred(oldestOnes, tiers, rng);
       notice = 'You have seen every available ' + topic + ' question at this level, so this one is a repeat. Import more questions in Settings.';
     }
+    return { chosen: chosen, notice: notice };
+  }
 
-    var order = shuffledOrder(rng);
-    var day = {
-      date: todayISO, qid: chosen.id, topic: topic, level: chosen.level, wantedLevel: wanted,
-      subtopic: chosen.subtopic, question: chosen.question,
-      options: order.map(function (i) { return chosen.options[i]; }),
-      correct: LETTERS[order.indexOf(chosen.correct_index)],
-      explanation: chosen.explanation, notice: notice,
-      answer: null, isCorrect: null, answeredAt: null
-    };
-    state.days[todayISO] = day;
-    return { day: day, created: true, notice: notice };
+  /* Makes sure today has its questions (state.perDay of them, default 3). Never changes or removes
+   * an existing one. Returns { days, day (the first), created (any new?), notice (of the first) }. */
+  function assignToday(state, bank, todayISO, rng) {
+    rng = rng || Math.random;
+    var perDay = perDayOf(state);
+    var topic = topicFor(todayISO, state.startDate);
+    var wanted = levelFor(todayISO, state.startDate);
+    var have = {};
+    dayQuestions(state, todayISO).forEach(function (d) { have[d.slot] = true; });
+    var created = false, problem = null;
+
+    for (var n = 1; n <= perDay; n++) {
+      if (have[n]) continue;
+      var pick = chooseQuestion(state, bank, todayISO, topic, wanted, rng);
+      if (!pick.chosen) { problem = pick.message; break; }
+      var chosen = pick.chosen, order = shuffledOrder(rng);
+      state.days[slotKey(todayISO, n)] = {
+        date: todayISO, slot: n, qid: chosen.id, topic: topic, level: chosen.level, wantedLevel: wanted,
+        subtopic: chosen.subtopic, question: chosen.question,
+        options: order.map(function (i) { return chosen.options[i]; }),
+        correct: LETTERS[order.indexOf(chosen.correct_index)],
+        explanation: chosen.explanation, notice: pick.notice,
+        answer: null, isCorrect: null, answeredAt: null
+      };
+      created = true;
+    }
+    var days = dayQuestions(state, todayISO);
+    return { days: days, day: days[0] || null, created: created,
+      notice: days.length ? (days[0].notice || null) : problem };
   }
 
   function answerDay(state, dateISO, letter, nowISO) {
@@ -219,6 +275,7 @@
     });
   }
 
+  function slotLabel(d) { return d.date + ' Q' + (d.slot || 1); }
   function pct(right, total) { return total ? Math.round(100 * right / total) + '%' : '-'; }
   function optionText(day, letter) { return letter + ') ' + day.options[LETTERS.indexOf(letter)]; }
 
@@ -241,14 +298,14 @@
     if (s.wrong.length) {
       out.push('', 'QUESTIONS YOU GOT WRONG (' + s.wrong.length + ')');
       s.wrong.forEach(function (d, i) {
-        out.push('', (i + 1) + '. [' + d.date + ' | ' + d.topic + ' | level ' + d.level + ' | ' + d.subtopic + ']', d.question,
+        out.push('', (i + 1) + '. [' + slotLabel(d) + ' | ' + d.topic + ' | level ' + d.level + ' | ' + d.subtopic + ']', d.question,
           'Your answer: ' + optionText(d, d.answer), 'Correct answer: ' + optionText(d, d.correct), 'Why: ' + d.explanation);
       });
     } else if (s.answered.length) out.push('', 'No wrong answers this month. Excellent.');
     if (s.skipped.length) {
       out.push('', 'UNANSWERED (' + s.skipped.length + ') - correct answers');
       s.skipped.forEach(function (d, i) {
-        out.push('', (i + 1) + '. [' + d.date + ' | ' + d.topic + ' | ' + d.subtopic + ']', d.question,
+        out.push('', (i + 1) + '. [' + slotLabel(d) + ' | ' + d.topic + ' | ' + d.subtopic + ']', d.question,
           'Correct answer: ' + optionText(d, d.correct), 'Why: ' + d.explanation);
       });
     }
@@ -268,9 +325,9 @@
       'DTSTART:' + startISO.replace(/-/g, '') + 'T' + hh + mm + '00',
       'DURATION:PT10M',
       'RRULE:FREQ=DAILY',
-      'SUMMARY:Engineering question of the day',
-      'DESCRIPTION:Open the Engineering Coach app and answer the question of the day.',
-      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Engineering question of the day', 'TRIGGER:PT0M', 'END:VALARM',
+      'SUMMARY:Engineering questions of the day',
+      'DESCRIPTION:Open the Engineering Coach app and answer the questions of the day.',
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Engineering questions of the day', 'TRIGGER:PT0M', 'END:VALARM',
       'END:VEVENT', 'END:VCALENDAR', ''
     ].join('\r\n');
   }
@@ -278,6 +335,8 @@
   return {
     LEVEL_NAMES: LEVEL_NAMES, MAX_LEVEL: MAX_LEVEL, LETTERS: LETTERS, TOPICS: TOPICS,
     localISO: localISO, topicFor: topicFor, monthsElapsed: monthsElapsed, monthNumber: monthNumber, levelFor: levelFor,
+    DEFAULT_PER_DAY: DEFAULT_PER_DAY, MAX_PER_DAY: MAX_PER_DAY, perDayOf: perDayOf, slotKey: slotKey,
+    dayQuestions: dayQuestions, dayScore: dayScore,
     newState: newState, isState: isState, validateBank: validateBank, mergeBanks: mergeBanks, bankSummary: bankSummary,
     assignToday: assignToday, answerDay: answerDay, monthStats: monthStats, monthLabel: monthLabel,
     availableMonths: availableMonths, reportText: reportText, makeIcs: makeIcs

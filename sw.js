@@ -1,6 +1,6 @@
 /* Service worker: makes the app work offline.
  * Network first (so updates arrive when you are online), falling back to the saved copy when offline. */
-const CACHE = 'engcoach-v1';
+const CACHE = 'engcoach-v2';
 const ASSETS = [
   './', './index.html', './style.css', './engine.js', './app.js', './data/bank.js',
   './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'

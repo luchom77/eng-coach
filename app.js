@@ -9,6 +9,8 @@
   var toastEl = document.getElementById('toast');
   var view = 'today';
   var reportMonth = null;
+  var viewSlot = null;   // question being shown; null = the first unanswered one (or the summary)
+  var viewDate = null;
   var installEvent = null;
   var state = loadState();
 
@@ -92,6 +94,37 @@
   // ---------- Today ----------
   function badge(text, cls) { return h('span', { class: 'badge' + (cls ? ' ' + cls : ''), text: text }); }
 
+  function slotOf(d) { return d.slot || 1; }
+
+  function chipsFor(days, cur) {
+    return h('div', { class: 'chips', role: 'group', 'aria-label': 'Today’s questions' }, days.map(function (d) {
+      var mark = d.answer ? (d.isCorrect ? ' ✓' : ' ✗') : '';
+      var cls = 'chip' + (d.answer ? (d.isCorrect ? ' ok' : ' bad') : '') + (cur === d ? ' current' : '');
+      return h('button', { type: 'button', class: cls, 'aria-current': cur === d ? 'true' : 'false',
+        'aria-label': 'Question ' + slotOf(d) + (d.answer ? (d.isCorrect ? ', correct' : ', wrong') : ', not answered'),
+        onclick: function () { viewSlot = slotOf(d); render(); } }, 'Q' + slotOf(d) + mark);
+    }));
+  }
+
+  function summaryCard(days, date) {
+    var right = days.filter(function (d) { return d.isCorrect; }).length;
+    var card = h('div', { class: 'card stack' },
+      h('h2', { text: 'All done for today' }),
+      h('p', { class: 'score', text: right + ' of ' + days.length + ' correct' }));
+    days.forEach(function (d) {
+      var rightText = d.options[E.LETTERS.indexOf(d.correct)];
+      card.appendChild(h('details', null,
+        h('summary', { text: 'Q' + slotOf(d) + (d.isCorrect ? ' ✓ ' : ' ✗ ') + d.subtopic }),
+        h('p', { class: 'q', text: d.question }),
+        d.isCorrect ? null : h('p', { class: 'miss', text: 'Your answer: ' + d.answer + ') ' + d.options[E.LETTERS.indexOf(d.answer)] }),
+        h('p', { class: 'right', text: 'Correct answer: ' + d.correct + ') ' + rightText }),
+        h('p', { text: d.explanation })));
+    });
+    var p = date.split('-').map(Number), s = E.monthStats(state, p[0], p[1], date);
+    card.appendChild(h('p', { class: 'muted', text: 'This month: ' + s.right + '/' + s.answered.length + ' correct. Come back tomorrow for ' + E.perDayOf(state) + ' new questions.' }));
+    return card;
+  }
+
   function todayView() {
     var date = today();
     var r = E.assignToday(state, bank(), date);
@@ -99,7 +132,18 @@
     if (!r.day) {
       return h('section', { class: 'card' }, h('h2', { text: 'No question available' }), h('p', { text: r.notice }));
     }
-    var d = r.day, answered = !!d.answer;
+    if (viewDate !== date) { viewDate = date; viewSlot = null; }
+    var days = r.days;
+    var cur = viewSlot ? days.filter(function (d) { return slotOf(d) === viewSlot; })[0] : null;
+    if (!cur) cur = days.filter(function (d) { return !d.answer; })[0] || null;
+
+    if (!cur) {
+      return h('section', { class: 'stack' },
+        h('p', { class: 'muted', text: 'Month ' + E.monthNumber(date, state.startDate) + ' of the program · ' + date }),
+        chipsFor(days, null), summaryCard(days, date));
+    }
+
+    var d = cur, answered = !!d.answer;
     var parts = date.split('-').map(Number);
     var s = E.monthStats(state, parts[0], parts[1], date);
 
@@ -118,12 +162,13 @@
       }
       list.appendChild(h('li', null, h('button', {
         type: 'button', class: cls, disabled: answered,
-        onclick: function () { choose(date, letter); }
+        onclick: function () { choose(date, slotOf(d), letter); }
       }, h('span', { class: 'letter', text: letter }), h('span', { text: d.options[i] }))));
     });
 
     var wrap = h('section', { class: 'stack' },
       h('p', { class: 'muted', text: 'Month ' + E.monthNumber(date, state.startDate) + ' of the program · ' + date }),
+      chipsFor(days, d),
       meta,
       d.notice ? h('p', { class: 'notice', text: d.notice }) : null,
       h('div', { class: 'card' }, h('p', { class: 'question', text: d.question })),
@@ -131,19 +176,23 @@
 
     if (answered) {
       var right = d.options[E.LETTERS.indexOf(d.correct)];
+      var more = days.some(function (x) { return !x.answer; });
       var fb = h('div', { class: 'feedback ' + (d.isCorrect ? 'ok' : 'bad'), role: 'status' },
         h('strong', { text: d.isCorrect ? 'Correct!' : 'Not quite.' }),
         d.isCorrect ? null : h('p', { text: 'You answered ' + d.answer + ') ' + d.options[E.LETTERS.indexOf(d.answer)] + '. The correct answer is ' + d.correct + ') ' + right + '.' }),
         h('p', { text: d.explanation }),
-        h('p', { class: 'muted', text: 'This month: ' + s.right + '/' + s.answered.length + ' correct. Come back tomorrow for the next question.' }));
+        h('p', { class: 'muted', text: 'This month: ' + s.right + '/' + s.answered.length + ' correct.' }));
       wrap.appendChild(fb);
+      wrap.appendChild(h('button', { type: 'button', class: 'primary', text: more ? 'Next question' : 'See today’s summary',
+        onclick: function () { viewSlot = null; render(); window.scrollTo(0, 0); } }));
     }
     return wrap;
   }
 
-  function choose(date, letter) {
-    var res = E.answerDay(state, date, letter, nowISO());
+  function choose(date, slot, letter) {
+    var res = E.answerDay(state, E.slotKey(date, slot), letter, nowISO());
     if (res.ok) save();
+    viewSlot = slot;
     render();
   }
 
@@ -189,7 +238,7 @@
       wrap.appendChild(h('h3', { text: 'Questions you got wrong (' + s.wrong.length + ')' }));
       s.wrong.forEach(function (d) {
         wrap.appendChild(h('details', null,
-          h('summary', { text: d.date + ' · ' + d.topic + ' · ' + d.subtopic }),
+          h('summary', { text: d.date + ' Q' + slotOf(d) + ' · ' + d.topic + ' · ' + d.subtopic }),
           h('p', { class: 'q', text: d.question }),
           h('p', { class: 'miss', text: 'Your answer: ' + d.answer + ') ' + d.options[E.LETTERS.indexOf(d.answer)] }),
           h('p', { class: 'right', text: 'Correct answer: ' + d.correct + ') ' + d.options[E.LETTERS.indexOf(d.correct)] }),
@@ -202,7 +251,7 @@
       wrap.appendChild(h('h3', { text: 'Unanswered (' + s.skipped.length + ')' }));
       s.skipped.forEach(function (d) {
         wrap.appendChild(h('details', null,
-          h('summary', { text: d.date + ' · ' + d.topic + ' · ' + d.subtopic }),
+          h('summary', { text: d.date + ' Q' + slotOf(d) + ' · ' + d.topic + ' · ' + d.subtopic }),
           h('p', { class: 'q', text: d.question }),
           h('p', { class: 'right', text: 'Correct answer: ' + d.correct + ') ' + d.options[E.LETTERS.indexOf(d.correct)] }),
           h('p', { text: d.explanation })));
@@ -241,6 +290,18 @@
           toast('Open the downloaded file to add the reminder');
         } }))));
 
+    // questions per day
+    var perSel = h('select', { 'aria-label': 'Questions per day' }, [1, 2, 3, 4, 5].map(function (n) {
+      return h('option', { value: String(n), selected: n === E.perDayOf(state), text: String(n) });
+    }));
+    wrap.appendChild(h('div', { class: 'card' }, h('h2', { text: 'Questions per day' }),
+      h('p', { class: 'muted', text: 'Applies from now on. Questions already shown today are kept.' }),
+      h('div', { class: 'row' }, perSel,
+        h('button', { type: 'button', class: 'secondary', text: 'Apply', onclick: function () {
+          state.perDay = Number(perSel.value) || 3; save(); viewSlot = null; toast('Now ' + state.perDay + ' per day');
+          render();
+        } }))));
+
     // program start
     var startInput = h('input', { type: 'date', value: state.startDate, 'aria-label': 'Program start date' });
     wrap.appendChild(h('div', { class: 'card' }, h('h2', { text: 'Program start date' }),
@@ -264,7 +325,7 @@
     var qFile = h('input', { type: 'file', accept: '.json,application/json', 'aria-label': 'Question file',
       onchange: function () { if (qFile.files[0]) readFile(qFile.files[0], importQuestions); } });
     wrap.appendChild(h('div', { class: 'card' }, h('h2', { text: 'Question bank (' + all.length + ' questions)' }),
-      h('p', { class: 'muted', text: 'Each month needs about 15 questions per topic. When a level has none left, the app uses the next lower level.' }),
+      h('p', { class: 'muted', text: 'At ' + E.perDayOf(state) + ' per day, each month uses about ' + 15 * E.perDayOf(state) + ' questions per topic. When a level has none left, the app uses the next lower level.' }),
       table, h('h3', { text: 'Add more questions' }),
       h('p', { class: 'muted', text: 'Choose a question file (.json) made with the generator tool.' }), qFile));
 
@@ -279,7 +340,7 @@
         } }),
         h('button', { type: 'button', class: 'danger', text: 'Reset everything', onclick: function () {
           if (confirm('Delete all answers and start over? This cannot be undone.')) {
-            state = E.newState(today()); save(); reportMonth = null; view = 'today'; render(); toast('Reset');
+            state = E.newState(today()); save(); reportMonth = null; viewSlot = null; view = 'today'; render(); toast('Reset');
           }
         } })),
       h('h3', { text: 'Restore a backup' }), bFile));
@@ -303,7 +364,7 @@
     if (!E.isState(data)) { toast('That does not look like a backup from this app.'); return; }
     if (!confirm('Replace everything on this phone with the backup?')) return;
     data.extraBank = Array.isArray(data.extraBank) ? data.extraBank : [];
-    state = data; save(); reportMonth = null; render(); toast('Backup restored');
+    state = data; save(); reportMonth = null; viewSlot = null; render(); toast('Backup restored');
   }
 
   // ---------- shell ----------

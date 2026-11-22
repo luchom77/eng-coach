@@ -1,6 +1,6 @@
 # Engineering Coach (offline phone app)
 
-One Mechanical or Electrical engineering question per day, on your Android phone, with no internet,
+Three Mechanical or Electrical engineering questions per day (changeable from 1 to 5 in Settings), on your Android phone, with no internet,
 laptop or paid account needed once it is installed.
 
 - **Topic:** alternates every week (week 1 Mechanical, week 2 Electrical, ...).
@@ -13,12 +13,15 @@ laptop or paid account needed once it is installed.
 
 ## What is included, and what is not (read this)
 
-- The app ships with **32 questions: level 1 (month 1), 16 Mechanical and 16 Electrical.** That
-  covers your first month. Levels 2 to 5 still need to be written. When a level has no questions
-  the app shows the next lower level and tells you so on screen.
+- The app ships with **132 level-1 questions (66 Mechanical, 66 Electrical).** At 3 a day, a month
+  uses about 45 per topic, so this lasts roughly 45 days (simulated). Levels 2 to 5 still need to be
+  written. When a level has no unused questions the app shows the next lower level and tells you
+  so on screen; once everything has been seen it starts repeating the oldest ones.
+- Each day: Q1, Q2, Q3 chips at the top. Answer one, tap *Next question*, and after the last one you
+  get a summary. Tap a chip to review any question. Reports label wrong answers like `2026-11-22 Q2`.
 - New questions are added from *Settings > Add more questions* by importing a `.json` file. You do
   not need to re-install the app.
-- Questions are multiple choice, text only. The arithmetic in 21 of the 32 questions was checked by
+- Questions are multiple choice, text only. The arithmetic in 79 of the 132 questions was checked by
   script at build time, but please skim the explanations yourself: if one looks wrong, trust a
   textbook and tell me.
 
@@ -66,14 +69,20 @@ python3 tools/build_bank.py --json level2.json --min-level 2   # file to import 
 python3 tools/make_dist.py                          # refresh dist/ if you want to re-host
 ```
 
+Questions are grouped in batches (see `tools/bank_fundamentals_2.py`). The `base` and `fundamentals-2` batches are bundled into
+the app; any other batch is exported as an importable file, for example
+`python3 tools/build_bank.py --json question-packs/fundamentals-100.json --batch fundamentals-2`.
+`question-packs/fundamentals-100.json` is the same 100 level-1 questions as an importable file;
+they are already bundled, so do not import them again.
+
 Import the `.json` on the phone under *Settings > Add more questions*. Rows for each level and
-topic in that screen show how many questions you have. Aim for about 16 per topic per level.
+topic in that screen show how many questions you have. Aim for about 15 x (questions per day) per topic per level, i.e. 45 at 3 a day.
 
 ## Tests
 
 ```bash
 npm install        # once, installs the test browser simulator (jsdom)
-npm test           # 33 tests: logic and interface
+npm test           # 43 tests: logic and interface
 ```
 
 ## Files

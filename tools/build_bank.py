@@ -1,6 +1,6 @@
 """Validate tools/bank_src.py (including arithmetic checks) and write data/bank.js.
 
-Run from the project folder:  python3 tools/build_bank.py
+Run from the project folder:  python3 tools/build_bank.py [--json FILE [--batch NAME] [--min-level N]]
 """
 import json
 import math
@@ -14,6 +14,7 @@ sys.path.insert(0, str(HERE))
 from bank_src import QUESTIONS  # noqa: E402
 
 OUT = HERE.parent / "data" / "bank.js"
+BUNDLED_BATCHES = {"base", "fundamentals-2"}  # extra batches are exported as importable .json files instead
 LEADING_NUMBER = re.compile(r"^\s*([-−]?\d+(?:\.\d+)?)")
 # "option B", "answer C", or an "A) ..." style label (but not a unit like "(A)" for ampere)
 LETTER_REF = re.compile(r"\b(?:option|answer|choice)\s+[A-D]\b|(?:^|\s)[A-D]\)\s", re.I)
@@ -72,16 +73,20 @@ def main():
         print("\n".join(" - " + p for p in problems))
         sys.exit(1)
 
-    clean = [{k: v for k, v in item.items() if k != "check"} for item in QUESTIONS]
+    def strip(item):
+        return {k: v for k, v in item.items() if k not in ("check", "batch")}
+
+    clean = [strip(i) for i in QUESTIONS if i["batch"] in BUNDLED_BATCHES]
 
     # Optional: --json FILE writes a file you can import on the phone (Settings > Add more questions),
     # so new questions do not require re-uploading the app. Add --min-level N to export only harder ones.
     if "--json" in sys.argv:
         target = Path(sys.argv[sys.argv.index("--json") + 1])
         min_level = int(sys.argv[sys.argv.index("--min-level") + 1]) if "--min-level" in sys.argv else 1
-        chosen = [item for item in clean if item["level"] >= min_level]
+        batch = sys.argv[sys.argv.index("--batch") + 1] if "--batch" in sys.argv else None
+        chosen = [strip(i) for i in QUESTIONS if i["level"] >= min_level and (batch is None or i["batch"] == batch)]
         target.write_text(json.dumps({"questions": chosen}, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"Wrote {len(chosen)} questions (level >= {min_level}) to {target}")
+        print(f"Wrote {len(chosen)} questions (level >= {min_level}, batch {batch or 'any'}) to {target}")
 
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(
@@ -90,7 +95,7 @@ def main():
         encoding="utf-8",
     )
     checked = sum(1 for i in QUESTIONS if i["check"])
-    print(f"OK: {len(clean)} questions written to {OUT} ({checked} arithmetic-checked)")
+    print(f"OK: {len(QUESTIONS)} questions valid ({checked} arithmetic-checked); {len(clean)} bundled into {OUT.name}")
     for (level, topic), n in sorted(Counter((i["level"], i["topic"]) for i in QUESTIONS).items()):
         print(f"  level {level} {topic}: {n}")
 

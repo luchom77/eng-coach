@@ -1,0 +1,1504 @@
+{
+ "questions": [
+  {
+   "id": "L1-M-17",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "How many millimetres are there in 2.5 metres?",
+   "options": [
+    "25 mm",
+    "250 mm",
+    "2500 mm",
+    "0.0025 mm"
+   ],
+   "correct_index": 2,
+   "explanation": "One metre is 1000 millimetres, so multiply by 1000: 2.5 × 1000 = 2500 mm. Multiplying by 10 or 100 mixes millimetres up with decimetres or centimetres."
+  },
+  {
+   "id": "L1-M-18",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "Convert a speed of 72 km/h to metres per second.",
+   "options": [
+    "259 m/s",
+    "20 m/s",
+    "7.2 m/s",
+    "1.2 m/s"
+   ],
+   "correct_index": 1,
+   "explanation": "There are 1000 m in a km and 3600 s in an hour, so divide km/h by 3.6: 72 / 3.6 = 20 m/s. Multiplying by 3.6 converts in the wrong direction and gives 259."
+  },
+  {
+   "id": "L1-M-19",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "Which of these is NOT an SI base unit?",
+   "options": [
+    "Metre",
+    "Second",
+    "Newton",
+    "Kelvin"
+   ],
+   "correct_index": 2,
+   "explanation": "The SI base units are the metre, kilogram, second, ampere, kelvin, mole and candela. The newton is a derived unit: 1 N = 1 kg·m/s²."
+  },
+  {
+   "id": "L1-M-20",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "A tank holds 3 litres of water. What is that volume in cubic metres?",
+   "options": [
+    "0.003 m³",
+    "0.03 m³",
+    "3 m³",
+    "3000 m³"
+   ],
+   "correct_index": 0,
+   "explanation": "One litre is 0.001 m³ (a cubic metre holds 1000 litres), so 3 litres = 0.003 m³."
+  },
+  {
+   "id": "L1-M-21",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "What is one newton equal to, in SI base units?",
+   "options": [
+    "1 kg·m/s",
+    "1 kg·m²/s²",
+    "1 kg·m/s²",
+    "1 kg/(m·s²)"
+   ],
+   "correct_index": 2,
+   "explanation": "Newton's second law gives force = mass × acceleration, so 1 N = 1 kg × 1 m/s² = 1 kg·m/s². With an extra metre (kg·m²/s²) you get the joule, the unit of energy."
+  },
+  {
+   "id": "L1-M-22",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "A gear turns at 3000 revolutions per minute. How many revolutions is that per second?",
+   "options": [
+    "180 000 rev/s",
+    "50 rev/s",
+    "5 rev/s",
+    "0.02 rev/s"
+   ],
+   "correct_index": 1,
+   "explanation": "A minute has 60 seconds, so divide by 60: 3000 / 60 = 50 revolutions per second. Multiplying by 60 goes the wrong way, and 0.02 is the time for one revolution in seconds."
+  },
+  {
+   "id": "L1-M-23",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "SI units and unit conversion",
+   "question": "The prefix 'mega' (M), as in megapascal, means:",
+   "options": [
+    "10³",
+    "10⁹",
+    "10⁻⁶",
+    "10⁶"
+   ],
+   "correct_index": 3,
+   "explanation": "Mega means one million, 10⁶. Kilo is 10³, giga is 10⁹ and micro is 10⁻⁶."
+  },
+  {
+   "id": "L1-M-24",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "What is the weight of a 5 kg object on Earth? (g = 9.81 m/s²)",
+   "options": [
+    "0.51 N",
+    "5 N",
+    "49 N",
+    "49 kg"
+   ],
+   "correct_index": 2,
+   "explanation": "Weight is a force: W = m × g = 5 × 9.81 ≈ 49 N. Dividing by g gives 0.51, and kilograms measure mass, not weight."
+  },
+  {
+   "id": "L1-M-25",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "Water has a density of 1000 kg/m³. What is the mass of 0.5 m³ of water?",
+   "options": [
+    "2000 kg",
+    "500 kg",
+    "0.0005 kg",
+    "1000.5 kg"
+   ],
+   "correct_index": 1,
+   "explanation": "Mass = density × volume = 1000 × 0.5 = 500 kg. Dividing density by volume gives 2000, which is not a mass."
+  },
+  {
+   "id": "L1-M-26",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "A metal block has a mass of 2 kg and a volume of 0.00025 m³. What is its density?",
+   "options": [
+    "0.0005 kg/m³",
+    "500 kg/m³",
+    "8000 kg/m³",
+    "80 000 kg/m³"
+   ],
+   "correct_index": 2,
+   "explanation": "Density = mass / volume = 2 / 0.00025 = 8000 kg/m³, typical of steel. Multiplying mass by volume gives 0.0005."
+  },
+  {
+   "id": "L1-M-27",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "An aluminium block (2700 kg/m³) and a steel block (7800 kg/m³) have exactly the same volume. Which statement is true?",
+   "options": [
+    "The aluminium block has more mass",
+    "The steel block has more mass",
+    "Both blocks have the same mass",
+    "The steel block has less volume"
+   ],
+   "correct_index": 1,
+   "explanation": "Mass = density × volume. With equal volumes, the material with the higher density has the greater mass, so the steel block is heavier than the aluminium block."
+  },
+  {
+   "id": "L1-M-28",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "An object weighs 600 N on Earth. Taking g = 9.81 m/s², what is its mass?",
+   "options": [
+    "5886 kg",
+    "61.2 kg",
+    "600 kg",
+    "0.016 kg"
+   ],
+   "correct_index": 1,
+   "explanation": "Weight W = m × g, so m = W / g = 600 / 9.81 ≈ 61.2 kg. Multiplying by g gives 5886, which is not a mass."
+  },
+  {
+   "id": "L1-M-29",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "What happens to an object's mass and weight when it is taken from Earth to the Moon?",
+   "options": [
+    "Mass and weight both stay the same",
+    "Mass stays the same and weight decreases",
+    "Mass decreases and weight stays the same",
+    "Mass and weight both decrease"
+   ],
+   "correct_index": 1,
+   "explanation": "Mass is the amount of matter and does not depend on location. Weight is the gravitational force on that mass, and the Moon's gravity is about one sixth of Earth's, so the weight decreases."
+  },
+  {
+   "id": "L1-M-30",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Mass, weight and density",
+   "question": "A steel plate measures 2 m × 0.5 m × 0.01 m. Steel has a density of 7800 kg/m³. What is its mass?",
+   "options": [
+    "7.8 kg",
+    "780 kg",
+    "78 kg",
+    "15 600 kg"
+   ],
+   "correct_index": 2,
+   "explanation": "The volume is 2 × 0.5 × 0.01 = 0.01 m³. Mass = density × volume = 7800 × 0.01 = 78 kg. A slipped decimal point gives 7.8 or 780."
+  },
+  {
+   "id": "L1-M-31",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Force and Newton's laws",
+   "question": "A 10 kg box is pushed by a net force of 30 N. What is its acceleration?",
+   "options": [
+    "300 m/s²",
+    "0.33 m/s²",
+    "3 m/s²",
+    "20 m/s²"
+   ],
+   "correct_index": 2,
+   "explanation": "F = m × a, so a = F / m = 30 / 10 = 3 m/s². Multiplying the numbers gives 300, and inverting the fraction gives 0.33."
+  },
+  {
+   "id": "L1-M-32",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Force and Newton's laws",
+   "question": "What net force is needed to accelerate a 1200 kg car at 2.5 m/s²?",
+   "options": [
+    "480 N",
+    "3000 N",
+    "1202.5 N",
+    "300 N"
+   ],
+   "correct_index": 1,
+   "explanation": "F = m × a = 1200 × 2.5 = 3000 N. Dividing the mass by the acceleration gives 480, which is not a force."
+  },
+  {
+   "id": "L1-M-33",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Force and Newton's laws",
+   "question": "Newton's first law says an object at rest, or moving at constant velocity in a straight line, stays that way unless:",
+   "options": [
+    "its mass changes",
+    "a net external force acts on it",
+    "it is heated",
+    "it is placed in a vacuum"
+   ],
+   "correct_index": 1,
+   "explanation": "Only a net external force changes an object's velocity; the tendency to keep its motion is called inertia. Without such a force the motion stays the same, whether in air or in a vacuum."
+  },
+  {
+   "id": "L1-M-34",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Force and Newton's laws",
+   "question": "Two forces act on a point: 6 N to the east and 8 N to the north. What is the size of the resultant force?",
+   "options": [
+    "14 N",
+    "2 N",
+    "10 N",
+    "48 N"
+   ],
+   "correct_index": 2,
+   "explanation": "Perpendicular forces combine with Pythagoras: the square root of (6² + 8²) = the square root of 100 = 10 N. Simply adding them (14 N) only works for forces in the same direction."
+  },
+  {
+   "id": "L1-M-35",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Force and Newton's laws",
+   "question": "A 70 kg person stands on a bathroom scale in a lift moving up at constant speed. What force does the scale read? (g = 9.81 m/s²)",
+   "options": [
+    "70 N",
+    "687 N",
+    "6.9 N",
+    "0 N"
+   ],
+   "correct_index": 1,
+   "explanation": "At constant speed the acceleration is zero, so the net force is zero and the scale supports the full weight: 70 × 9.81 ≈ 687 N. The reading only changes while the lift is accelerating."
+  },
+  {
+   "id": "L1-M-36",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Force and Newton's laws",
+   "question": "A 1000 kg car brakes with a constant force of 4000 N. What is the size of its deceleration?",
+   "options": [
+    "0.25 m/s²",
+    "4 m/s²",
+    "4 000 000 m/s²",
+    "40 m/s²"
+   ],
+   "correct_index": 1,
+   "explanation": "a = F / m = 4000 / 1000 = 4 m/s², directed opposite to the motion. Multiplying instead of dividing gives 4 000 000, and inverting the fraction gives 0.25."
+  },
+  {
+   "id": "L1-M-37",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "What is the difference between speed and velocity?",
+   "options": [
+    "They are identical quantities",
+    "Velocity includes direction, speed does not",
+    "Speed includes direction, velocity does not",
+    "Speed is measured in m/s² and velocity in m/s"
+   ],
+   "correct_index": 1,
+   "explanation": "Speed is a scalar: it has a size only. Velocity is a vector: it has a size and a direction. A car going round a roundabout at constant speed has a changing velocity."
+  },
+  {
+   "id": "L1-M-38",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "A runner covers 400 m in 50 s. What is the average speed?",
+   "options": [
+    "8 m/s",
+    "0.125 m/s",
+    "20 000 m/s",
+    "350 m/s"
+   ],
+   "correct_index": 0,
+   "explanation": "Average speed = distance / time = 400 / 50 = 8 m/s. Inverting the fraction gives 0.125, and multiplying gives 20 000."
+  },
+  {
+   "id": "L1-M-39",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "A train moving at 20 m/s accelerates uniformly at 0.5 m/s² for 10 s. What is its final speed?",
+   "options": [
+    "5 m/s",
+    "25 m/s",
+    "30 m/s",
+    "200 m/s"
+   ],
+   "correct_index": 1,
+   "explanation": "Use v = u + a × t = 20 + 0.5 × 10 = 25 m/s. The first option is only the speed gained, forgetting the starting speed."
+  },
+  {
+   "id": "L1-M-40",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "An object is dropped from rest. Ignoring air resistance (g = 9.81 m/s²), what is its speed after 3 s?",
+   "options": [
+    "3.27 m/s",
+    "29.4 m/s",
+    "44.1 m/s",
+    "88.3 m/s"
+   ],
+   "correct_index": 1,
+   "explanation": "Starting from rest, v = g × t = 9.81 × 3 ≈ 29.4 m/s. The value 44.1 is the distance fallen in metres (½ g t²), not a speed."
+  },
+  {
+   "id": "L1-M-41",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "A car accelerates from 0 to 100 km/h in 8 s. What is its average acceleration in m/s²?",
+   "options": [
+    "12.5 m/s²",
+    "3.47 m/s²",
+    "0.29 m/s²",
+    "27.8 m/s²"
+   ],
+   "correct_index": 1,
+   "explanation": "First convert 100 km/h to m/s: 100 / 3.6 ≈ 27.8 m/s. Then a = change in speed / time = 27.8 / 8 ≈ 3.47 m/s². Skipping the conversion gives 12.5, and 27.8 forgets to divide by the time."
+  },
+  {
+   "id": "L1-M-42",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "An object travels 60 m in the first 5 s and 90 m in the next 5 s. What is its average speed over the whole 10 s?",
+   "options": [
+    "12 m/s",
+    "18 m/s",
+    "15 m/s",
+    "150 m/s"
+   ],
+   "correct_index": 2,
+   "explanation": "Average speed = total distance / total time = (60 + 90) / 10 = 15 m/s. The first two options are the speeds during each separate 5 s interval."
+  },
+  {
+   "id": "L1-M-43",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Speed, velocity and acceleration",
+   "question": "What does the area under a velocity-time graph represent?",
+   "options": [
+    "The acceleration",
+    "The displacement",
+    "The force",
+    "The power"
+   ],
+   "correct_index": 1,
+   "explanation": "Displacement = velocity × time, which is the area under a velocity-time graph. The slope of that graph gives the acceleration instead."
+  },
+  {
+   "id": "L1-M-44",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "What is the kinetic energy of a 2 kg ball moving at 5 m/s?",
+   "options": [
+    "10 J",
+    "25 J",
+    "50 J",
+    "5 J"
+   ],
+   "correct_index": 1,
+   "explanation": "Kinetic energy is ½ m v² = 0.5 × 2 × 5² = 25 J. Forgetting the ½ gives 50 J, and using m × v instead of v² gives 10 J."
+  },
+  {
+   "id": "L1-M-45",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "A 3 kg book is lifted 2 m. By how much does its gravitational potential energy increase? (g = 9.81 m/s²)",
+   "options": [
+    "6 J",
+    "14.7 J",
+    "58.9 J",
+    "588.6 J"
+   ],
+   "correct_index": 2,
+   "explanation": "The gain is m g h = 3 × 9.81 × 2 ≈ 58.9 J. Leaving out g gives 6 J, and dividing by 2 instead of multiplying gives 14.7 J."
+  },
+  {
+   "id": "L1-M-46",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "A machine does 6000 J of work in 20 s. What is its power output?",
+   "options": [
+    "120 000 W",
+    "300 W",
+    "0.0033 W",
+    "6020 W"
+   ],
+   "correct_index": 1,
+   "explanation": "Power = work / time = 6000 / 20 = 300 W. Multiplying work by time gives 120 000."
+  },
+  {
+   "id": "L1-M-47",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "Which of these is equal to one joule?",
+   "options": [
+    "1 N·m",
+    "1 N/m",
+    "1 kg·m/s",
+    "1 W/s"
+   ],
+   "correct_index": 0,
+   "explanation": "Work = force × distance, so 1 J = 1 N × 1 m = 1 N·m. A joule is also one watt-second (W·s), not W/s."
+  },
+  {
+   "id": "L1-M-48",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "A 60 W lamp is switched on for 5 hours. How much energy does it use, in watt-hours?",
+   "options": [
+    "12 Wh",
+    "65 Wh",
+    "300 Wh",
+    "300 W"
+   ],
+   "correct_index": 2,
+   "explanation": "Energy = power × time = 60 W × 5 h = 300 Wh. Dividing gives 12, and watts alone are a unit of power, not energy."
+  },
+  {
+   "id": "L1-M-49",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "A 1500 kg car is travelling at 20 m/s. What is its kinetic energy?",
+   "options": [
+    "30 kJ",
+    "300 kJ",
+    "600 kJ",
+    "15 kJ"
+   ],
+   "correct_index": 1,
+   "explanation": "Kinetic energy = ½ m v² = 0.5 × 1500 × 20² = 300 000 J = 300 kJ. Forgetting the ½ gives 600 kJ."
+  },
+  {
+   "id": "L1-M-50",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Work, energy and power",
+   "question": "A pump lifts 300 kg of water through 8 m in 60 s. Taking g = 9.81 m/s², what useful power does it deliver?",
+   "options": [
+    "39 W",
+    "392 W",
+    "23 544 W",
+    "3924 W"
+   ],
+   "correct_index": 1,
+   "explanation": "Work = m g h = 300 × 9.81 × 8 ≈ 23 544 J. Power = work / time = 23 544 / 60 ≈ 392 W. The third option forgets to divide by the time."
+  },
+  {
+   "id": "L1-M-51",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "A pulley system has 4 rope segments supporting the load. Ignoring friction, what effort is needed to lift a 400 N load?",
+   "options": [
+    "1600 N",
+    "400 N",
+    "100 N",
+    "4 N"
+   ],
+   "correct_index": 2,
+   "explanation": "With 4 supporting segments the ideal mechanical advantage is 4, so the effort is 400 / 4 = 100 N, pulled through four times the distance the load rises."
+  },
+  {
+   "id": "L1-M-52",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "Why does a longer handle make it easier to loosen a tight nut with a spanner?",
+   "options": [
+    "It reduces the friction in the thread",
+    "It increases the torque produced by the same force",
+    "It reduces the total energy needed",
+    "It makes the nut lighter"
+   ],
+   "correct_index": 1,
+   "explanation": "Torque = force × perpendicular distance from the pivot. A longer handle turns the same hand force into a larger torque. The work done stays the same (ignoring losses): the hand just moves through a larger distance."
+  },
+  {
+   "id": "L1-M-53",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "A wheelbarrow carries a 600 N load that sits 0.4 m from the wheel axle. The handles are 1.2 m from the axle. What upward force at the handles balances the load?",
+   "options": [
+    "200 N",
+    "1800 N",
+    "600 N",
+    "50 N"
+   ],
+   "correct_index": 0,
+   "explanation": "Balance the moments about the axle: F × 1.2 = 600 × 0.4, so F = 240 / 1.2 = 200 N. Inverting the ratio gives 1800 N."
+  },
+  {
+   "id": "L1-M-54",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "A machine has an ideal mechanical advantage of 5, but because of friction its actual mechanical advantage is 4. What is its efficiency?",
+   "options": [
+    "125%",
+    "80%",
+    "20%",
+    "9%"
+   ],
+   "correct_index": 1,
+   "explanation": "Efficiency = actual mechanical advantage / ideal mechanical advantage = 4 / 5 = 0.8 = 80%. Inverting the ratio gives 125%, which is impossible for a real machine."
+  },
+  {
+   "id": "L1-M-55",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "A frictionless ramp 5 m long raises a 500 N crate through a height of 2 m. What force along the slope pushes the crate up?",
+   "options": [
+    "200 N",
+    "1250 N",
+    "500 N",
+    "80 N"
+   ],
+   "correct_index": 0,
+   "explanation": "Without friction, work in equals work out: F × 5 = 500 × 2, so F = 200 N. Inverting the ratio gives 1250 N, which is more than the crate's weight and would defeat the purpose of a ramp."
+  },
+  {
+   "id": "L1-M-56",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "Which of these is a simple machine?",
+   "options": [
+    "An electric motor",
+    "A lever",
+    "A thermostat",
+    "A battery"
+   ],
+   "correct_index": 1,
+   "explanation": "The classic simple machines are the lever, wheel and axle, pulley, inclined plane, wedge and screw. A motor, a thermostat and a battery are not on that list."
+  },
+  {
+   "id": "L1-M-57",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Simple machines (levers, pulleys, inclined planes)",
+   "question": "In an ideal pulley system, the effort rope is pulled 6 m while the load rises 2 m. What is the ideal mechanical advantage?",
+   "options": [
+    "0.33",
+    "2",
+    "3",
+    "12"
+   ],
+   "correct_index": 2,
+   "explanation": "Ideal mechanical advantage = effort distance / load distance = 6 / 2 = 3. Inverting the ratio gives 0.33."
+  },
+  {
+   "id": "L1-M-58",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Pressure and basic fluid statics",
+   "question": "A 70 kg person stands on one foot with a contact area of 0.02 m². What pressure do they exert on the ground? (g = 9.81 m/s²)",
+   "options": [
+    "34.3 kPa",
+    "3.5 kPa",
+    "687 kPa",
+    "0.34 kPa"
+   ],
+   "correct_index": 0,
+   "explanation": "Pressure = force / area, and the force is the weight: 70 × 9.81 ≈ 687 N. P = 687 / 0.02 ≈ 34 300 Pa = 34.3 kPa. Forgetting g gives 3.5 kPa, and 687 is the force before dividing by the area."
+  },
+  {
+   "id": "L1-M-59",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Pressure and basic fluid statics",
+   "question": "Atmospheric pressure at sea level is about 101 kPa. What is that in bar, where 1 bar = 100 kPa?",
+   "options": [
+    "1.01 bar",
+    "10.1 bar",
+    "0.101 bar",
+    "101 000 bar"
+   ],
+   "correct_index": 0,
+   "explanation": "Divide by 100: 101 / 100 = 1.01 bar. The other values slip the decimal point or convert to pascals."
+  },
+  {
+   "id": "L1-M-60",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Pressure and basic fluid statics",
+   "question": "A fixed force acts on a surface. What happens to the pressure if the area it acts on is doubled?",
+   "options": [
+    "It doubles",
+    "It is halved",
+    "It stays the same",
+    "It quadruples"
+   ],
+   "correct_index": 1,
+   "explanation": "Pressure = force / area, so doubling the area with the same force halves the pressure. This is why snowshoes spread a person's weight over a larger area."
+  },
+  {
+   "id": "L1-M-61",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Pressure and basic fluid statics",
+   "question": "In a still liquid, at which of these depths is the hydrostatic pressure greatest?",
+   "options": [
+    "At the surface",
+    "At 2 m depth",
+    "At 5 m depth",
+    "At 1 m depth"
+   ],
+   "correct_index": 2,
+   "explanation": "Hydrostatic pressure is ρ × g × h, which grows in proportion to the depth, so the greatest pressure is at 5 m."
+  },
+  {
+   "id": "L1-M-62",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Pressure and basic fluid statics",
+   "question": "A hydraulic jack has a small piston of area 0.001 m² and a large piston of area 0.02 m². A 50 N force is applied to the small piston. What force does the large piston produce?",
+   "options": [
+    "2.5 N",
+    "1000 N",
+    "50 000 N",
+    "20 N"
+   ],
+   "correct_index": 1,
+   "explanation": "The pressure is the same on both pistons: F₁ / A₁ = F₂ / A₂, so F₂ = 50 × 0.02 / 0.001 = 1000 N. The force is multiplied by the area ratio of 20, at the cost of moving the small piston 20 times further."
+  },
+  {
+   "id": "L1-M-63",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Temperature and heat basics",
+   "question": "Convert a temperature of 25 °C to kelvin.",
+   "options": [
+    "298 K",
+    "248 K",
+    "25 K",
+    "77 K"
+   ],
+   "correct_index": 0,
+   "explanation": "Kelvin = Celsius + 273.15, so 25 °C = 298.15 K, about 298 K. Subtracting gives 248, and 77 is the value in degrees Fahrenheit, not kelvin."
+  },
+  {
+   "id": "L1-M-64",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Temperature and heat basics",
+   "question": "Water boils at 100 °C at sea level. What is this in degrees Fahrenheit? (°F = °C × 1.8 + 32)",
+   "options": [
+    "132 °F",
+    "212 °F",
+    "180 °F",
+    "373 °F"
+   ],
+   "correct_index": 1,
+   "explanation": "°F = 100 × 1.8 + 32 = 212 °F. Forgetting to add 32 gives 180, and 373 is the temperature in kelvin."
+  },
+  {
+   "id": "L1-M-65",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Temperature and heat basics",
+   "question": "Which mode of heat transfer does not need any material between the source and the receiver?",
+   "options": [
+    "Conduction",
+    "Convection",
+    "Radiation",
+    "Evaporation"
+   ],
+   "correct_index": 2,
+   "explanation": "Radiation carries heat as electromagnetic waves, so it works through a vacuum, which is how the Sun warms the Earth. Conduction and convection both need matter."
+  },
+  {
+   "id": "L1-M-66",
+   "level": 1,
+   "topic": "Mechanical",
+   "subtopic": "Temperature and heat basics",
+   "question": "How much heat is needed to raise 0.5 kg of aluminium from 20 °C to 60 °C? (specific heat of aluminium = 900 J/(kg·°C))",
+   "options": [
+    "1.8 kJ",
+    "18 kJ",
+    "36 kJ",
+    "45 kJ"
+   ],
+   "correct_index": 1,
+   "explanation": "Q = m × c × ΔT = 0.5 × 900 × (60 − 20) = 18 000 J = 18 kJ. Forgetting the mass gives 36 kJ."
+  },
+  {
+   "id": "L1-E-17",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "Which unit is used to measure electrical resistance?",
+   "options": [
+    "Ampere",
+    "Volt",
+    "Ohm",
+    "Watt"
+   ],
+   "correct_index": 2,
+   "explanation": "Resistance is measured in ohms (Ω). The ampere is the unit of current, the volt of voltage and the watt of power."
+  },
+  {
+   "id": "L1-E-18",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "What does a voltmeter measure?",
+   "options": [
+    "The flow of charge per second",
+    "The potential difference between two points",
+    "The resistance of a component",
+    "The energy used over time"
+   ],
+   "correct_index": 1,
+   "explanation": "A voltmeter measures the potential difference (voltage) between two points, so it is connected across the component. Current is measured by an ammeter and resistance by an ohmmeter."
+  },
+  {
+   "id": "L1-E-19",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "How must an ammeter be connected to measure the current through a component?",
+   "options": [
+    "In parallel with the component",
+    "In series with the component",
+    "Across the power supply only",
+    "It does not matter how it is connected"
+   ],
+   "correct_index": 1,
+   "explanation": "The ammeter must be in series so the same current flows through it. It has a very low resistance so it barely disturbs the circuit; connected in parallel it would act almost like a short circuit."
+  },
+  {
+   "id": "L1-E-20",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "A current of 2 A flows for 30 seconds. How much charge passes?",
+   "options": [
+    "15 C",
+    "60 C",
+    "32 C",
+    "0.067 C"
+   ],
+   "correct_index": 1,
+   "explanation": "Charge = current × time = 2 A × 30 s = 60 C. Dividing the numbers gives 15."
+  },
+  {
+   "id": "L1-E-21",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "Convert a resistance of 4700 Ω to kilo-ohms.",
+   "options": [
+    "47 kΩ",
+    "4.7 kΩ",
+    "0.47 kΩ",
+    "4 700 000 kΩ"
+   ],
+   "correct_index": 1,
+   "explanation": "Kilo means 1000, so divide by 1000: 4700 Ω = 4.7 kΩ. The other values slip the decimal point or multiply instead."
+  },
+  {
+   "id": "L1-E-22",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "Which two things are needed for current to flow continuously in a circuit?",
+   "options": [
+    "A voltage source and a closed path",
+    "A resistor and an open switch",
+    "A capacitor and an insulator",
+    "Two batteries and no wires"
+   ],
+   "correct_index": 0,
+   "explanation": "A source of potential difference pushes the charge, and a complete closed loop lets it travel round. An open switch or an insulator breaks the path."
+  },
+  {
+   "id": "L1-E-23",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Voltage, current and resistance",
+   "question": "5 coulombs of charge pass through a lamp every 0.5 seconds. What is the current?",
+   "options": [
+    "2.5 A",
+    "10 A",
+    "0.1 A",
+    "5.5 A"
+   ],
+   "correct_index": 1,
+   "explanation": "Current = charge / time = 5 / 0.5 = 10 A. Multiplying gives 2.5, and inverting the fraction gives 0.1."
+  },
+  {
+   "id": "L1-E-24",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "What voltage is needed to drive 3 A through a 15 Ω resistor?",
+   "options": [
+    "5 V",
+    "18 V",
+    "45 V",
+    "0.2 V"
+   ],
+   "correct_index": 2,
+   "explanation": "V = I × R = 3 × 15 = 45 V. Dividing gives 5, and adding the numbers gives 18."
+  },
+  {
+   "id": "L1-E-25",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "A heating element of 4.5 Ω carries a current of 2 A. What is the voltage across it?",
+   "options": [
+    "9 V",
+    "2.25 V",
+    "6.5 V",
+    "0.44 V"
+   ],
+   "correct_index": 0,
+   "explanation": "V = I × R = 2 × 4.5 = 9 V. Dividing resistance by current gives 2.25, and adding gives 6.5."
+  },
+  {
+   "id": "L1-E-26",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "A lamp with a resistance of 240 Ω is connected to a 230 V supply. What current does it draw?",
+   "options": [
+    "0.96 A",
+    "1.04 A",
+    "55 200 A",
+    "10 A"
+   ],
+   "correct_index": 0,
+   "explanation": "I = V / R = 230 / 240 ≈ 0.96 A. Inverting the fraction gives 1.04, and multiplying gives the absurd 55 200."
+  },
+  {
+   "id": "L1-E-27",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "The voltage across a fixed resistor is doubled. What happens to the current through it?",
+   "options": [
+    "It doubles",
+    "It is halved",
+    "It stays the same",
+    "It quadruples"
+   ],
+   "correct_index": 0,
+   "explanation": "Ohm's law: I = V / R. For a fixed resistance, current is proportional to voltage, so doubling the voltage doubles the current."
+  },
+  {
+   "id": "L1-E-28",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "A resistor's value is doubled while the supply voltage stays the same. What happens to the current?",
+   "options": [
+    "It doubles",
+    "It stays the same",
+    "It is halved",
+    "It quadruples"
+   ],
+   "correct_index": 2,
+   "explanation": "I = V / R. With the voltage fixed, doubling R halves the current."
+  },
+  {
+   "id": "L1-E-29",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "A circuit on a 24 V supply carries 0.8 A. What is its total resistance?",
+   "options": [
+    "19.2 Ω",
+    "30 Ω",
+    "0.033 Ω",
+    "24.8 Ω"
+   ],
+   "correct_index": 1,
+   "explanation": "R = V / I = 24 / 0.8 = 30 Ω. Multiplying gives 19.2, and inverting the fraction gives 0.033."
+  },
+  {
+   "id": "L1-E-30",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Ohm's law",
+   "question": "A resistor carries 250 mA when 5 V is across it. What is its resistance?",
+   "options": [
+    "1250 Ω",
+    "0.02 Ω",
+    "20 Ω",
+    "245 Ω"
+   ],
+   "correct_index": 2,
+   "explanation": "Convert first: 250 mA = 0.25 A. R = V / I = 5 / 0.25 = 20 Ω. Treating 250 as amps gives 0.02 Ω, and multiplying 5 × 250 gives 1250."
+  },
+  {
+   "id": "L1-E-31",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "A 12 V car headlamp draws 5 A. What is its power?",
+   "options": [
+    "2.4 W",
+    "7 W",
+    "60 W",
+    "17 W"
+   ],
+   "correct_index": 2,
+   "explanation": "P = V × I = 12 × 5 = 60 W. Dividing gives 2.4, and adding gives 17."
+  },
+  {
+   "id": "L1-E-32",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "A 100 W bulb is connected to a 230 V supply. What current does it draw?",
+   "options": [
+    "0.435 A",
+    "2.3 A",
+    "23 000 A",
+    "0.0043 A"
+   ],
+   "correct_index": 0,
+   "explanation": "I = P / V = 100 / 230 ≈ 0.435 A. Inverting the fraction gives 2.3, and multiplying gives 23 000."
+  },
+  {
+   "id": "L1-E-33",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "A 10 Ω resistor carries a current of 3 A. How much power does it dissipate?",
+   "options": [
+    "30 W",
+    "90 W",
+    "9 W",
+    "300 W"
+   ],
+   "correct_index": 1,
+   "explanation": "P = I² × R = 3² × 10 = 90 W. Multiplying current by resistance gives the voltage (30 V), not the power."
+  },
+  {
+   "id": "L1-E-34",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "A 5 Ω resistor has 20 V across it. What power does it dissipate?",
+   "options": [
+    "100 W",
+    "4 W",
+    "80 W",
+    "25 W"
+   ],
+   "correct_index": 2,
+   "explanation": "P = V² / R = 20² / 5 = 80 W. Multiplying voltage by resistance gives 100, and V / R = 4 is the current in amps."
+  },
+  {
+   "id": "L1-E-35",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "A 2000 W kettle runs for 6 minutes. How much energy does it use, in kWh?",
+   "options": [
+    "0.2 kWh",
+    "12 kWh",
+    "0.33 kWh",
+    "2 kWh"
+   ],
+   "correct_index": 0,
+   "explanation": "Six minutes is 0.1 hour, so energy = 2 kW × 0.1 h = 0.2 kWh. Forgetting to convert minutes to hours gives 12."
+  },
+  {
+   "id": "L1-E-36",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "Electricity costs 0.20 euros per kWh. A 1.5 kW heater runs for 4 hours. What does that cost?",
+   "options": [
+    "1.20 euros",
+    "0.30 euros",
+    "6.00 euros",
+    "7.50 euros"
+   ],
+   "correct_index": 0,
+   "explanation": "Energy = 1.5 kW × 4 h = 6 kWh. Cost = 6 × 0.20 = 1.20 euros. The 6.00 figure is the energy in kWh, with no price applied."
+  },
+  {
+   "id": "L1-E-37",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical power and energy (P = VI)",
+   "question": "Which of these is a unit of energy?",
+   "options": [
+    "Watt",
+    "Kilowatt-hour",
+    "Ampere",
+    "Volt"
+   ],
+   "correct_index": 1,
+   "explanation": "The kilowatt-hour is a unit of energy (power × time) and is what electricity bills use. The watt is power, the ampere is current and the volt is voltage."
+  },
+  {
+   "id": "L1-E-38",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "A 5 Ω and a 15 Ω resistor are connected in series across a 20 V supply. What current flows?",
+   "options": [
+    "4 A",
+    "1 A",
+    "0.25 A",
+    "20 A"
+   ],
+   "correct_index": 1,
+   "explanation": "Series resistances add: 5 + 15 = 20 Ω. Then I = V / R = 20 / 20 = 1 A."
+  },
+  {
+   "id": "L1-E-39",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "Two 100 Ω resistors are connected in parallel across a 10 V supply. What total current is drawn?",
+   "options": [
+    "0.05 A",
+    "0.1 A",
+    "0.2 A",
+    "20 A"
+   ],
+   "correct_index": 2,
+   "explanation": "Each branch has the full 10 V across it, so each carries 10 / 100 = 0.1 A. In parallel the branch currents add: 0.1 + 0.1 = 0.2 A, which corresponds to an equivalent resistance of 50 Ω."
+  },
+  {
+   "id": "L1-E-40",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "In a series circuit, which quantity is the same through every component?",
+   "options": [
+    "Voltage",
+    "Current",
+    "Resistance",
+    "Power"
+   ],
+   "correct_index": 1,
+   "explanation": "A series circuit has a single path, so the same current flows through every component. The voltage is shared out between them."
+  },
+  {
+   "id": "L1-E-41",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "In a parallel circuit, which quantity is the same across every branch?",
+   "options": [
+    "Current",
+    "Resistance",
+    "Voltage",
+    "Power"
+   ],
+   "correct_index": 2,
+   "explanation": "Every branch of a parallel circuit is connected across the same two points, so each branch has the same voltage. The current splits between the branches."
+  },
+  {
+   "id": "L1-E-42",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "Resistors of 6 Ω and 3 Ω are connected in parallel. What is the equivalent resistance?",
+   "options": [
+    "9 Ω",
+    "4.5 Ω",
+    "2 Ω",
+    "18 Ω"
+   ],
+   "correct_index": 2,
+   "explanation": "For two resistors in parallel, R = (R₁ × R₂) / (R₁ + R₂) = 18 / 9 = 2 Ω. Adding gives the series value of 9 Ω, and 4.5 Ω is just the average. A parallel combination is always smaller than the smallest resistor."
+  },
+  {
+   "id": "L1-E-43",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "Three 30 Ω resistors are connected in parallel. What is the equivalent resistance?",
+   "options": [
+    "90 Ω",
+    "30 Ω",
+    "10 Ω",
+    "0.1 Ω"
+   ],
+   "correct_index": 2,
+   "explanation": "n equal resistors in parallel give R / n = 30 / 3 = 10 Ω. The 90 Ω option is the series value."
+  },
+  {
+   "id": "L1-E-44",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Series and parallel resistors",
+   "question": "A 12 V battery is connected across two resistors in series, 4 Ω and 8 Ω. What is the voltage across the 8 Ω resistor?",
+   "options": [
+    "4 V",
+    "6 V",
+    "8 V",
+    "12 V"
+   ],
+   "correct_index": 2,
+   "explanation": "The current is 12 / (4 + 8) = 1 A. The voltage across the 8 Ω resistor is 1 × 8 = 8 V, and the 4 Ω resistor takes the other 4 V. The larger resistance takes the larger share of the voltage."
+  },
+  {
+   "id": "L1-E-45",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "DC versus AC basics",
+   "question": "Which of these supplies direct current (DC)?",
+   "options": [
+    "A household wall socket",
+    "A battery",
+    "An alternator output",
+    "A transformer secondary"
+   ],
+   "correct_index": 1,
+   "explanation": "A battery supplies direct current. Wall sockets and alternators supply alternating current, and transformers only work with AC."
+  },
+  {
+   "id": "L1-E-46",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "DC versus AC basics",
+   "question": "What is the period of a 50 Hz alternating signal?",
+   "options": [
+    "50 s",
+    "0.2 s",
+    "0.02 s",
+    "2 s"
+   ],
+   "correct_index": 2,
+   "explanation": "Period = 1 / frequency = 1 / 50 = 0.02 s (20 ms) for each full cycle."
+  },
+  {
+   "id": "L1-E-47",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "DC versus AC basics",
+   "question": "What does 'RMS' stand for when describing an AC voltage?",
+   "options": [
+    "Rapid measured signal",
+    "Root mean square",
+    "Real maximum supply",
+    "Rated motor speed"
+   ],
+   "correct_index": 1,
+   "explanation": "RMS means root mean square. The RMS value of an AC voltage is the DC voltage that would give the same heating power in a resistor, which is why the 230 V on a mains socket is quoted as an RMS value."
+  },
+  {
+   "id": "L1-E-48",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "DC versus AC basics",
+   "question": "An AC supply has a peak voltage of 325 V. What is its RMS value? (RMS = peak / √2)",
+   "options": [
+    "460 V",
+    "230 V",
+    "325 V",
+    "162 V"
+   ],
+   "correct_index": 1,
+   "explanation": "RMS = peak / √2 = 325 / 1.414 ≈ 230 V. Multiplying by √2 gives 460, and dividing by 2 gives 162."
+  },
+  {
+   "id": "L1-E-49",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "DC versus AC basics",
+   "question": "What is the usual shape of the mains AC voltage waveform?",
+   "options": [
+    "Square wave",
+    "Sine wave",
+    "Constant straight line",
+    "Sawtooth"
+   ],
+   "correct_index": 1,
+   "explanation": "Generators produce a voltage that rotates smoothly through each cycle, giving a sine wave. A constant straight line would be DC."
+  },
+  {
+   "id": "L1-E-50",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "DC versus AC basics",
+   "question": "Which statement about direct current (DC) is correct?",
+   "options": [
+    "It reverses direction 50 times per second",
+    "It flows in one direction only",
+    "It cannot power electronics",
+    "It requires a transformer to flow"
+   ],
+   "correct_index": 1,
+   "explanation": "In direct current the charge flows in a single direction, as from a battery. Most electronic circuits actually run on DC."
+  },
+  {
+   "id": "L1-E-51",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Conductors, insulators and wire basics",
+   "question": "Which of these metals is the best electrical conductor?",
+   "options": [
+    "Steel",
+    "Lead",
+    "Silver",
+    "Titanium"
+   ],
+   "correct_index": 2,
+   "explanation": "Silver has the lowest resistivity of the common metals and conducts best, followed closely by copper. Steel, lead and titanium conduct noticeably worse."
+  },
+  {
+   "id": "L1-E-52",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Conductors, insulators and wire basics",
+   "question": "Why are electrical wires usually made of copper?",
+   "options": [
+    "It has low resistance and is relatively affordable",
+    "It is the only metal that conducts",
+    "It is an insulator that guides current",
+    "It is magnetic"
+   ],
+   "correct_index": 0,
+   "explanation": "Copper has very low resistivity, second only to silver, and costs far less than silver. All metals conduct, and copper is not magnetic."
+  },
+  {
+   "id": "L1-E-53",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Conductors, insulators and wire basics",
+   "question": "A copper wire is made twice as long, with the same cross-sectional area. What happens to its resistance?",
+   "options": [
+    "It is halved",
+    "It doubles",
+    "It stays the same",
+    "It quadruples"
+   ],
+   "correct_index": 1,
+   "explanation": "R = ρ × L / A, so resistance is proportional to length. Doubling the length doubles the resistance."
+  },
+  {
+   "id": "L1-E-54",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Conductors, insulators and wire basics",
+   "question": "A copper wire has a resistivity of 1.7×10⁻⁸ Ω·m, a length of 10 m and a cross-sectional area of 1×10⁻⁶ m². What is its resistance?",
+   "options": [
+    "0.17 Ω",
+    "1.7 Ω",
+    "0.017 Ω",
+    "170 Ω"
+   ],
+   "correct_index": 0,
+   "explanation": "R = ρ × L / A = 1.7×10⁻⁸ × 10 / 1×10⁻⁶ = 0.17 Ω. The other values come from slipping a power of ten."
+  },
+  {
+   "id": "L1-E-55",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Conductors, insulators and wire basics",
+   "question": "What generally happens to the resistance of a metal wire as its temperature rises?",
+   "options": [
+    "It increases",
+    "It decreases",
+    "It stays exactly the same",
+    "It drops to zero"
+   ],
+   "correct_index": 0,
+   "explanation": "In metals, higher temperature makes the atoms vibrate more, which scatters the moving electrons and raises the resistance. Some other materials, such as thermistors, behave differently."
+  },
+  {
+   "id": "L1-E-56",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Conductors, insulators and wire basics",
+   "question": "Which material is commonly used as the insulating coating on household wires?",
+   "options": [
+    "Copper",
+    "Steel",
+    "Plastic (PVC)",
+    "Aluminium"
+   ],
+   "correct_index": 2,
+   "explanation": "Household wire is coated with plastic such as PVC, which is an insulator. The metals listed all conduct."
+  },
+  {
+   "id": "L1-E-57",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical safety, fuses and breakers",
+   "question": "A circuit breaker 'trips'. What has most likely happened?",
+   "options": [
+    "The current exceeded its rating, so it opened the circuit",
+    "The voltage dropped to zero",
+    "The wire became an insulator",
+    "Energy was stored in it"
+   ],
+   "correct_index": 0,
+   "explanation": "A circuit breaker opens automatically when the current exceeds its rating (an overload or short circuit), protecting the wiring. It can be reset once the fault is fixed."
+  },
+  {
+   "id": "L1-E-58",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical safety, fuses and breakers",
+   "question": "An appliance normally draws 4 A. Fuses are available in 3 A, 5 A, 13 A and 30 A. Which is the most suitable?",
+   "options": [
+    "3 A",
+    "5 A",
+    "13 A",
+    "30 A"
+   ],
+   "correct_index": 1,
+   "explanation": "A fuse must be rated above the normal current, so it does not blow needlessly, but not much higher, so it still protects. 5 A is the smallest rating above 4 A. A 3 A fuse would blow in normal use."
+  },
+  {
+   "id": "L1-E-59",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical safety, fuses and breakers",
+   "question": "Why should you never replace a blown fuse with a much higher-rated one?",
+   "options": [
+    "It lets dangerous overcurrent flow without breaking the circuit",
+    "It increases the supply voltage",
+    "It makes the appliance run faster",
+    "It reduces the energy bill"
+   ],
+   "correct_index": 0,
+   "explanation": "The fuse rating protects the wiring and the appliance. A much larger fuse will not blow when the current is too high, so the wires can overheat and start a fire."
+  },
+  {
+   "id": "L1-E-60",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical safety, fuses and breakers",
+   "question": "What is the purpose of the earth connection on a metal appliance casing?",
+   "options": [
+    "It stores charge for later use",
+    "It boosts the supply voltage",
+    "It reduces the energy bill",
+    "It gives fault current a safe path, so a fuse or breaker trips"
+   ],
+   "correct_index": 3,
+   "explanation": "If a live wire touches the metal casing, the earth wire carries a large fault current to ground. That current trips the fuse or breaker, so the casing does not stay live."
+  },
+  {
+   "id": "L1-E-61",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Electrical safety, fuses and breakers",
+   "question": "What should you do before replacing a lamp in a light fitting?",
+   "options": [
+    "Keep the power on and use dry hands",
+    "Touch the contacts to test them",
+    "Switch off and isolate the supply first",
+    "Wear a metal watch for better grip"
+   ],
+   "correct_index": 2,
+   "explanation": "Always switch off and isolate the supply before touching any part of a fitting. Dry hands do not make live contacts safe, and metal jewellery is a conductor."
+  },
+  {
+   "id": "L1-E-62",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Basic components (resistor, capacitor, inductor, diode)",
+   "question": "Which unit is used to measure capacitance?",
+   "options": [
+    "Henry",
+    "Farad",
+    "Ohm",
+    "Tesla"
+   ],
+   "correct_index": 1,
+   "explanation": "Capacitance is measured in farads (F). The henry is the unit of inductance, the ohm of resistance and the tesla of magnetic flux density."
+  },
+  {
+   "id": "L1-E-63",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Basic components (resistor, capacitor, inductor, diode)",
+   "question": "Which unit is used to measure inductance?",
+   "options": [
+    "Henry",
+    "Farad",
+    "Siemens",
+    "Coulomb"
+   ],
+   "correct_index": 0,
+   "explanation": "Inductance is measured in henries (H). The farad is for capacitance, the siemens for conductance and the coulomb for charge."
+  },
+  {
+   "id": "L1-E-64",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Basic components (resistor, capacitor, inductor, diode)",
+   "question": "What is the main purpose of a resistor in a circuit?",
+   "options": [
+    "To limit current or divide voltage",
+    "To amplify a signal",
+    "To store charge permanently",
+    "To generate AC"
+   ],
+   "correct_index": 0,
+   "explanation": "A resistor opposes current flow. It is used to limit current, for example to protect an LED, and in pairs to divide a voltage. It cannot amplify a signal or store charge."
+  },
+  {
+   "id": "L1-E-65",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Basic components (resistor, capacitor, inductor, diode)",
+   "question": "A switch in a branch of a circuit is open. What is the current in that branch?",
+   "options": [
+    "Maximum",
+    "Zero",
+    "Double",
+    "Unchanged"
+   ],
+   "correct_index": 1,
+   "explanation": "An open switch breaks the circuit, so there is no complete path and the current is zero. A closed switch lets the current flow."
+  },
+  {
+   "id": "L1-E-66",
+   "level": 1,
+   "topic": "Electrical",
+   "subtopic": "Basic components (resistor, capacitor, inductor, diode)",
+   "question": "Which component is the key element in a rectifier that converts AC to DC?",
+   "options": [
+    "Resistor",
+    "Diode",
+    "Fuse",
+    "Inductor"
+   ],
+   "correct_index": 1,
+   "explanation": "A rectifier uses diodes, which let current pass in one direction only. A smoothing capacitor is usually added to reduce the ripple."
+  }
+ ]
+}

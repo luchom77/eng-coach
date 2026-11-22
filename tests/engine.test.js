@@ -46,7 +46,7 @@ test('level rises monthly and caps at the top', () => {
 
 // ---- choosing and answering -----------------------------------------------------
 test('a day is assigned once and keeps its question', () => {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const a = E.assignToday(st, BANK, START, seeded(1));
   const b = E.assignToday(st, BANK, START, seeded(99));
   assert.equal(a.created, true);
@@ -58,7 +58,7 @@ test('a day is assigned once and keeps its question', () => {
 
 test('shuffled options keep the right answer attached to the right text', () => {
   for (let seed = 1; seed <= 60; seed++) {
-    const st = E.newState(START);
+    const st = E.newState(START); st.perDay = 1;
     const { day } = E.assignToday(st, BANK, START, seeded(seed));
     const src = BANK.find(q => q.id === day.qid);
     const truth = src.options[src.correct_index];
@@ -68,7 +68,7 @@ test('shuffled options keep the right answer attached to the right text', () => 
 });
 
 test('a month of daily questions never repeats and alternates topic by week', () => {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const rng = seeded(7);
   const seen = new Set();
   for (let i = 0; i < 30; i++) {
@@ -84,7 +84,7 @@ test('a month of daily questions never repeats and alternates topic by week', ()
 });
 
 test('when the bank lacks the wanted level it falls back, with a notice', () => {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const { day, notice } = E.assignToday(st, BANK, '2026-12-23', seeded(3)); // month 2 wants level 2
   assert.equal(day.level, 1);
   assert.equal(day.wantedLevel, 2);
@@ -95,7 +95,7 @@ test('uses a higher-level question as soon as one is imported', () => {
   const extra = [{ id: 'X-1', level: 2, topic: 'Mechanical', subtopic: 'Torque and moments', question: 'Q?',
     options: ['a', 'b', 'c', 'd'], correct_index: 0, explanation: 'because' }];
   const bank = E.mergeBanks(BANK, extra);
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const { day, notice } = E.assignToday(st, bank, '2026-12-22', seeded(3)); // Tuesday, mech week? check topic
   const wantTopic = E.topicFor('2026-12-22', START);
   if (wantTopic === 'Mechanical') { assert.equal(day.qid, 'X-1'); assert.equal(notice, null); }
@@ -103,7 +103,7 @@ test('uses a higher-level question as soon as one is imported', () => {
 });
 
 test('repeats the least recently seen question once everything has been used', () => {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const rng = seeded(11);
   const mech = BANK.filter(q => q.topic === 'Mechanical' && q.level === 1).length;
   let date = START, usedMech = 0, last;
@@ -123,14 +123,14 @@ test('repeats the least recently seen question once everything has been used', (
 });
 
 test('empty bank gives a helpful message instead of crashing', () => {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const r = E.assignToday(st, [], START, seeded(1));
   assert.equal(r.day, null);
   assert.match(r.notice, /Import/);
 });
 
 test('answers are graded once and cannot be changed', () => {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const { day } = E.assignToday(st, BANK, START, seeded(5));
   const wrong = E.LETTERS.find(l => l !== day.correct);
   const r1 = E.answerDay(st, START, wrong, '2026-11-22T09:00:00Z');
@@ -144,7 +144,7 @@ test('answers are graded once and cannot be changed', () => {
 
 // ---- report ----------------------------------------------------------------------
 function playedState() {
-  const st = E.newState(START);
+  const st = E.newState(START); st.perDay = 1;
   const rng = seeded(21);
   const plan = { 0: true, 1: false, 2: false, 3: true, 4: null }; // days 0-4 of the program
   for (let i = 0; i < 5; i++) {
@@ -226,4 +226,68 @@ test('calendar reminder is a daily repeating event with an alarm at the chosen t
   for (const line of ['BEGIN:VCALENDAR', 'RRULE:FREQ=DAILY', 'DTSTART:20261123T074500', 'DTSTAMP:20261122T104100Z',
     'BEGIN:VALARM', 'TRIGGER:PT0M', 'END:VCALENDAR']) assert.ok(ics.includes(line), line);
   assert.ok(E.isState(E.newState(START)) && !E.isState({}) && !E.isState(null));
+});
+
+// ---- several questions per day ----
+test('perDayOf defaults to 3 and clamps to 1-5', () => {
+  assert.equal(E.perDayOf({}), 3);
+  assert.equal(E.perDayOf({ perDay: null }), 3);
+  assert.equal(E.perDayOf({ perDay: 'x' }), 3);
+  assert.equal(E.perDayOf({ perDay: 0 }), 1);
+  assert.equal(E.perDayOf({ perDay: 99 }), 5);
+  assert.equal(E.perDayOf({ perDay: 2.4 }), 2);
+  assert.equal(E.newState(START).perDay, 3);
+});
+
+test('three per day: distinct questions, same topic and level, stable on repeat calls', () => {
+  const st = E.newState(START);
+  const r = E.assignToday(st, BANK, START, () => 0.3);
+  assert.equal(r.days.length, 3);
+  assert.equal(new Set(r.days.map((d) => d.qid)).size, 3);
+  assert.equal(new Set(r.days.map((d) => d.topic)).size, 1);
+  assert.deepEqual(r.days.map((d) => d.slot), [1, 2, 3]);
+  assert.ok(Object.keys(st.days).includes(START + '#2'));
+  const again = E.assignToday(st, BANK, START, () => 0.9);
+  assert.equal(again.created, false);
+  assert.deepEqual(again.days.map((d) => d.qid), r.days.map((d) => d.qid));
+});
+
+test('three per day over a month never repeats while the bank lasts', () => {
+  const st = E.newState(START);
+  const seen = new Set();
+  for (let i = 0; i < 30; i++) {
+    const date = E.localISO(new Date(Date.parse(START + 'T12:00:00') + i * 86400000));
+    E.assignToday(st, BANK, date, Math.random).days.forEach((d) => {
+      if (d.level === 1) { assert.ok(!seen.has(d.qid), 'repeat ' + d.qid); seen.add(d.qid); }
+    });
+  }
+});
+
+test('raising per-day adds questions without touching existing ones; lowering keeps them', () => {
+  const st = E.newState(START); st.perDay = 1;
+  const first = E.assignToday(st, BANK, START).days[0].qid;
+  st.perDay = 3;
+  const r = E.assignToday(st, BANK, START);
+  assert.equal(r.days.length, 3);
+  assert.equal(r.days[0].qid, first);
+  st.perDay = 1;
+  assert.equal(E.assignToday(st, BANK, START).days.length, 3);
+});
+
+test('legacy state without slot or perDay still reads as one question', () => {
+  const st = E.newState(START); st.perDay = 1;
+  E.assignToday(st, BANK, START);
+  delete st.days[START].slot; delete st.perDay;
+  const ds = E.dayQuestions(st, START);
+  assert.equal(ds.length, 1);
+  assert.equal(ds[0].slot, 1);
+});
+
+test('dayScore and report labels use slots', () => {
+  const st = E.newState(START);
+  const r = E.assignToday(st, BANK, START);
+  const wrong = r.days[1].correct === 'A' ? 'B' : 'A';
+  E.answerDay(st, START + '#2', wrong, START + 'T09:00:00');
+  assert.deepEqual(E.dayScore(st, START), { total: 3, answered: 1, right: 0 });
+  assert.match(E.reportText(st, 2026, 11, START), new RegExp(START + ' Q2'));
 });
